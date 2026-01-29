@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { Lang } from "../translations";
 
@@ -63,7 +62,7 @@ const withRetry = async <T>(
 //       The output MUST be in ${lang === 'zh' ? 'Chinese' : 'English'}.`,
 //     }));
     
-//     const text = response.text?.trim() || fallback;
+//     const text = (response as any).text?.trim() || fallback;
 //     cache[cacheKey] = text;
 //     return text;
 //   } catch (error) {
@@ -84,9 +83,10 @@ const withRetry = async <T>(
 //       The reply MUST be in ${lang === 'zh' ? 'Chinese' : 'English'}.`,
 //     }));
     
-//     return response.text?.trim() || fallback;
+//     return (response as any).text?.trim() || fallback;
 //   } catch (error) {
 //     console.error("Gemini Comment Error:", error);
 //     return fallback;
 //   }
 // };
+

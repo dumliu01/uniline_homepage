@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import { PROJECTS, LocalizedProject } from './constants';
 import { SITE_CONFIG } from './config';
 import { Lang, translations } from './translations';
+import { getAIGreeting } from './services/geminiService';
 
 interface ClickParticle {
   id: number;
@@ -24,6 +25,7 @@ const App: React.FC = () => {
   const [lang, setLang] = useState<Lang>('en');
   const [activeSection, setActiveSection] = useState<'hero' | 'works' | 'about' | 'contact'>('hero');
   const [greeting, setGreeting] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const [selectedProject, setSelectedProject] = useState<LocalizedProject | null>(null);
   const [clickParticles, setClickParticles] = useState<ClickParticle[]>([]);
   
@@ -97,20 +99,52 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // No Gemini dependency: keep a deterministic local greeting.
+    let active = true;
+    // Default deterministic greeting first
     setGreeting(t.hero.defaultGreeting);
+    
+    const fetchGreeting = async () => {
+      setIsTyping(true);
+      try {
+        const msg = await getAIGreeting(SITE_CONFIG.identity.name, lang);
+        if (active) setGreeting(msg);
+      } finally {
+        if (active) setIsTyping(false);
+      }
+    };
+    
+    fetchGreeting();
+    return () => { active = false; };
   }, [lang]);
 
+  // const staticParticles = useMemo(() => {
+  //   // Increased particle count from 40 to 120
+  //   return Array.from({ length: 120 }).map((_, i) => ({
+  //     id: i,
+  //     left: `${Math.random() * 100}%`,
+  //     top: `${Math.random() * 100 + 100}%`,
+  //     delay: `${Math.random() * 15}s`,
+  //     duration: `${Math.random() * 20 + 10}s`,
+  //     size: `${Math.random() * 1.5 + 0.3}px`,
+  //   }));
+  // }, []);
+
   const staticParticles = useMemo(() => {
-    // Increased particle count from 40 to 120
-    return Array.from({ length: 120 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100 + 100}%`,
-      delay: `${Math.random() * 15}s`,
-      duration: `${Math.random() * 20 + 10}s`,
-      size: `${Math.random() * 1.5 + 0.3}px`,
-    }));
+    // Increased particle count to 280 for a more dense, rich atmosphere.
+    // Using negative animation-delay ensures they are already "in motion" across the screen on load.
+    return Array.from({ length: 280 }).map((_, i) => {
+      const duration = Math.random() * 20 + 15;
+      return {
+        id: i,
+        left: `${Math.random() * 100}%`,
+        // Start from bottom, but allow negative delay to pre-populate the screen
+        top: '105%', 
+        delay: `-${Math.random() * duration}s`, // Negative delay makes them appear immediately at different stages of the animation
+        duration: `${duration}s`,
+        size: `${Math.random() * 1.8 + 0.4}px`,
+        opacity: Math.random() * 0.2 + 0.05,
+      };
+    });
   }, []);
 
   return (
@@ -203,24 +237,34 @@ const App: React.FC = () => {
       <ProjectModal project={selectedProject} lang={lang} onClose={() => setSelectedProject(null)} />
 
       {/* Main Content */}
-      <section ref={heroRef} className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative z-10">
-        <div className="relative mb-14">
-          <div className="absolute -inset-8 bg-accent/20 rounded-full blur-[60px] animate-pulse pointer-events-none" />
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-tr from-accent to-purple-500 rounded-full blur opacity-20 pointer-events-none" />
-            <img src={SITE_CONFIG.identity.avatar} className="relative w-40 h-40 rounded-full border-2 border-white/10 p-1 object-cover shadow-2xl" />
+      <section ref={heroRef} className="min-h-screen flex flex-col items-center justify-start pt-32 md:pt-40 text-center px-6 relative z-10">
+        {/* Black Hole Avatar Wrapper */}
+        <div className="bh-wrapper mb-6 md:mb-8 scale-75 md:scale-100 transition-all duration-700">
+          <div className="bh-disk-horizontal-glow"></div>
+          <div className="bh-arc-top"></div>
+          <div className="bh-arc-bottom"></div>
+          <div className="bh-ring-inner"></div>
+          <div className="bh-disk-horizontal"></div>
+          <div className="bh-lens-flare left"></div>
+          <div className="bh-lens-flare right"></div>
+          <div className="bh-core">
+            <img 
+              src={SITE_CONFIG.identity.avatar} 
+              className="w-full h-full object-cover scale-110 opacity-95 grayscale hover:grayscale-0 transition-all duration-1000" 
+              alt="UNILINE Studio Avatar"
+            />
           </div>
         </div>
         
-        <h1 className="text-6xl md:text-9xl font-outfit font-extrabold text-white tracking-tighter mb-6 leading-tight text-gradient">
+        <h1 className="text-6xl md:text-9xl font-outfit font-extrabold text-white tracking-tighter mb-4 leading-tight text-gradient">
           {SITE_CONFIG.identity.name.toUpperCase()}
         </h1>
-        <p className="text-xl md:text-2xl font-light text-slate-500 mb-10 tracking-[0.4em] uppercase">
+        <p className="text-xl md:text-2xl font-light text-slate-500 mb-6 tracking-[0.4em] uppercase">
           {SITE_CONFIG.identity.role[lang]}
         </p>
         
-        <div className="max-w-2xl mx-auto mb-16 h-12 flex items-center justify-center">
-          <p className="font-mono text-xs md:text-sm text-accent uppercase tracking-[0.25em] transition-opacity duration-1000 opacity-100">
+        <div className="max-w-2xl mx-auto mb-10 h-12 flex items-center justify-center">
+          <p className={`font-mono text-xs md:text-sm text-accent uppercase tracking-[0.25em] transition-opacity duration-1000 ${isTyping ? 'opacity-40' : 'opacity-100'}`}>
             <span className="opacity-40 mr-2">TERMINAL:</span> {greeting}
           </p>
         </div>
@@ -233,6 +277,13 @@ const App: React.FC = () => {
           <button onClick={() => scrollToSection('contact')} className="glass text-white px-12 py-4 rounded-full font-bold hover:bg-white/10 transition-all text-[11px] uppercase tracking-widest border-white/10">
             {t.hero.hello}
           </button>
+        </div>
+        
+        {/* Scroll hint */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-20 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7-7-7" />
+          </svg>
         </div>
       </section>
 
