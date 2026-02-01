@@ -18,7 +18,7 @@ export interface Project {
   demoUrl?: string;
 }
 
-// Added Comment interface for the Guestbook component
+// Added Comment interface to fix the error in components/Guestbook.tsx
 export interface Comment {
   id: string;
   author: string;

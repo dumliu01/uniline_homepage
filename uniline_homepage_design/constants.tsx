@@ -64,12 +64,13 @@ export const PROJECTS: LocalizedProject[] = [
   }
 ];
 
+// Added INITIAL_COMMENTS to fix the error in components/Guestbook.tsx
 export const INITIAL_COMMENTS: Comment[] = [
   {
-    id: '0',
-    author: 'Tech Innovator',
-    content: 'UNILINE is pushing the boundaries of what AI agents can do in a production environment.',
-    timestamp: new Date('2025-02-10'),
-    avatar: 'https://picsum.photos/seed/ai/100/100'
+    id: '1',
+    author: 'Aether',
+    content: 'Impressive work on the multi-agent orchestration. The future is definitely here.',
+    timestamp: new Date(),
+    avatar: 'https://picsum.photos/seed/aether/100/100'
   }
 ];

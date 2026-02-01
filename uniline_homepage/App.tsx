@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import ProjectCard from './components/ProjectCard';
 import ProjectModal from './components/ProjectModal';
 import Contact from './components/Contact';
+import Logo from './components/Logo';
 import { PROJECTS, LocalizedProject } from './constants';
 import { SITE_CONFIG } from './config';
 import { Lang, translations } from './translations';
@@ -238,7 +239,7 @@ const App: React.FC = () => {
       {/* Main Content */}
       <section ref={heroRef} className="min-h-screen flex flex-col items-center justify-start pt-32 md:pt-40 text-center px-6 relative z-10">
         {/* Black Hole Avatar Wrapper */}
-        <div className="bh-wrapper mb-6 md:mb-8 scale-75 md:scale-100 transition-all duration-700">
+        <div className="bh-wrapper mb-6 md:mb-10 scale-[0.85] md:scale-100 transition-all duration-1000">
           <div className="bh-disk-horizontal-glow"></div>
           <div className="bh-arc-top"></div>
           <div className="bh-arc-bottom"></div>
@@ -246,12 +247,9 @@ const App: React.FC = () => {
           <div className="bh-disk-horizontal"></div>
           <div className="bh-lens-flare left"></div>
           <div className="bh-lens-flare right"></div>
-          <div className="bh-core">
-            <img 
-              src={SITE_CONFIG.identity.avatar} 
-              className="w-full h-full object-cover scale-110 opacity-95 grayscale hover:grayscale-0 transition-all duration-1000" 
-              alt="UNILINE Studio Avatar"
-            />
+          <div className="bh-core flex items-center justify-center border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.15)] group overflow-visible">
+            {/* 智能奇点 Logo */}
+            <Logo className="w-[120%] h-[120%]" />
           </div>
         </div>
         

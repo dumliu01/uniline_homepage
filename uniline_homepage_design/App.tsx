@@ -4,9 +4,9 @@ import Navbar from './components/Navbar';
 import ProjectCard from './components/ProjectCard';
 import ProjectModal from './components/ProjectModal';
 import Contact from './components/Contact';
+import Logo from './components/Logo';
 import { PROJECTS, LocalizedProject } from './constants';
 import { SITE_CONFIG } from './config';
-import { getAIGreeting } from './services/geminiService';
 import { Lang, translations } from './translations';
 
 interface ClickParticle {
@@ -24,8 +24,6 @@ interface ClickParticle {
 const App: React.FC = () => {
   const [lang, setLang] = useState<Lang>('en');
   const [activeSection, setActiveSection] = useState<'hero' | 'works' | 'about' | 'contact'>('hero');
-  const [greeting, setGreeting] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const [selectedProject, setSelectedProject] = useState<LocalizedProject | null>(null);
   const [clickParticles, setClickParticles] = useState<ClickParticle[]>([]);
   const [clickEffectsEnabled, setClickEffectsEnabled] = useState(false);
@@ -89,24 +87,6 @@ const App: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    setGreeting(t.hero.defaultGreeting);
-    
-    const fetchGreeting = async () => {
-      setIsTyping(true);
-      try {
-        const msg = await getAIGreeting(SITE_CONFIG.identity.name, lang);
-        if (active) setGreeting(msg);
-      } finally {
-        if (active) setIsTyping(false);
-      }
-    };
-    
-    fetchGreeting();
-    return () => { active = false; };
-  }, [lang]);
-
   const staticParticles = useMemo(() => {
     return Array.from({ length: 280 }).map((_, i) => {
       const duration = Math.random() * 20 + 15;
@@ -155,27 +135,23 @@ const App: React.FC = () => {
       <Navbar onNav={scrollToSection} activeSection={activeSection} lang={lang} onToggleLang={toggleLang} />
       <ProjectModal project={selectedProject} lang={lang} onClose={() => setSelectedProject(null)} />
 
-      {/* Main Content - Reduced pt and switched to justify-start to pull content up */}
-      <section ref={heroRef} className="min-h-screen flex flex-col items-center justify-start pt-32 md:pt-40 text-center px-6 relative z-10">
+      {/* Main Content */}
+      <section ref={heroRef} className="min-h-screen flex flex-col items-center justify-start pt-[98px] md:pt-[130px] text-center px-6 relative z-10">
         
-        {/* Refined Black Hole Avatar Section - Reduced bottom margin */}
-        <div className="bh-wrapper mb-6 md:mb-8 scale-75 md:scale-100 transition-all duration-700">
+        {/* Avatar/Logo Section */}
+        <div className="bh-wrapper mb-6 md:mb-10 scale-[0.85] md:scale-100 transition-all duration-1000">
           <div className="bh-disk-horizontal-glow"></div>
           <div className="bh-arc-top"></div>
           <div className="bh-arc-bottom"></div>
           <div className="bh-ring-inner"></div>
           <div className="bh-disk-horizontal"></div>
           
-          {/* Lensing sparks at intersection points */}
           <div className="bh-lens-flare left"></div>
           <div className="bh-lens-flare right"></div>
           
-          <div className="bh-core">
-            <img 
-              src={SITE_CONFIG.identity.avatar} 
-              className="w-full h-full object-cover scale-110 opacity-95 grayscale hover:grayscale-0 transition-all duration-1000" 
-              alt="UNILINE Studio Avatar"
-            />
+          <div className="bh-core flex items-center justify-center border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.15)] group overflow-visible">
+            {/* 全新重构的“智能奇点”Logo */}
+            <Logo className="w-[120%] h-[120%]" />
           </div>
         </div>
         
@@ -187,8 +163,8 @@ const App: React.FC = () => {
         </p>
         
         <div className="max-w-2xl mx-auto mb-10 h-12 flex items-center justify-center">
-          <p className={`font-mono text-xs md:text-sm text-accent uppercase tracking-[0.25em] transition-opacity duration-1000 ${isTyping ? 'opacity-40' : 'opacity-100'}`}>
-            <span className="opacity-40 mr-2">TERMINAL:</span> {greeting}
+          <p className="font-mono text-xs md:text-sm text-accent uppercase tracking-[0.25em]">
+            <span className="opacity-40 mr-2">TERMINAL:</span> {t.hero.defaultGreeting}
           </p>
         </div>
 
@@ -202,7 +178,6 @@ const App: React.FC = () => {
           </button>
         </div>
         
-        {/* Subtle Scroll Hint to indicate more content below */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-20 animate-bounce">
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7-7-7" />

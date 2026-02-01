@@ -41,12 +41,12 @@ export const translations = {
       copied: 'Cloned!',
     },
     guestbook: {
-      title: 'Collective Log',
-      desc: 'Insights from our network of intelligence partners.',
-      namePlaceholder: 'Entity Name',
+      title: 'Neural Transmission',
+      desc: 'Leave a message for the studio core.',
+      namePlaceholder: 'Agent Identity',
       msgPlaceholder: 'Transmission content...',
       post: 'Send Signal',
-      aiResponse: 'UNILINE CORE',
+      aiResponse: 'Core Reply',
     },
     footer: {
       rights: '© 2025 UNILINE STUDIO // INTELLIGENCE ARCHITECTS',
@@ -98,12 +98,12 @@ export const translations = {
       copied: '已克隆！',
     },
     guestbook: {
-      title: '集体日志',
-      desc: '来自我们智能合作伙伴网络的见解。',
-      namePlaceholder: '实体名称',
+      title: '神经传输',
+      desc: '为工作室核心留下讯息。',
+      namePlaceholder: '智能体身份',
       msgPlaceholder: '传输内容...',
       post: '发送信号',
-      aiResponse: 'UNILINE 核心 AI',
+      aiResponse: '核心回复',
     },
     footer: {
       rights: '© 2025 UNILINE 工作室 // 智能架构师',
