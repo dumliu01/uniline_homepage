@@ -7,7 +7,6 @@ import Contact from './components/Contact';
 import { PROJECTS, LocalizedProject } from './constants';
 import { SITE_CONFIG } from './config';
 import { Lang, translations } from './translations';
-import { getAIGreeting } from './services/geminiService';
 
 interface ClickParticle {
   id: number;
@@ -103,17 +102,17 @@ const App: React.FC = () => {
     // Default deterministic greeting first
     setGreeting(t.hero.defaultGreeting);
     
-    const fetchGreeting = async () => {
-      setIsTyping(true);
-      try {
-        const msg = await getAIGreeting(SITE_CONFIG.identity.name, lang);
-        if (active) setGreeting(msg);
-      } finally {
-        if (active) setIsTyping(false);
-      }
-    };
+    // const fetchGreeting = async () => {
+    //   setIsTyping(true);
+    //   try {
+    //     const msg = await getAIGreeting(SITE_CONFIG.identity.name, lang);
+    //     if (active) setGreeting(msg);
+    //   } finally {
+    //     if (active) setIsTyping(false);
+    //   }
+    // };
     
-    fetchGreeting();
+    //fetchGreeting();
     return () => { active = false; };
   }, [lang]);
 
