@@ -61,5 +61,28 @@ export const PROJECTS: LocalizedProject[] = [
     platforms: ['SaaS', 'Web'],
     codeUrl: 'https://github.com/uniline',
     demoUrl: 'https://example.com'
+  },
+  {
+    id: '3',
+    title: { en: 'TyperDog: Typing Game', zh: 'TyperDog: 打字狗' },
+    description: { 
+      en: 'A typing game that helps you improve your typing speed and accuracy.',
+      zh: '一个打字游戏，帮助你提高打字速度和准确性。'
+    },
+    longDescription: {
+      en: 'TyperDog is a typing game that helps you improve your typing speed and accuracy. It is a simple game that you can play to improve your typing speed and accuracy.',
+      zh: '打字狗是一个打字游戏，帮助你提高打字速度和准确性。它是一个简单的游戏，你可以通过它来提高你的打字速度和准确性。'
+    },
+    category: 'Design',
+    imageUrl: '/res/images/typerdog_screen_1.jpg',
+    images: [
+      '/res/images/typerdog_screen_2.jpg'
+    ],
+    techStack: ['React', 'Stable Diffusion', 'FastAPI', 'Three.js'],
+    languages: ['TypeScript', 'Python', 'GLSL'],
+    tools: ['Figma', 'TensorFlow', 'CUDA'],
+    platforms: ['SaaS', 'Web'],
+    codeUrl: 'https://github.com/dumliu/typerdog',
+    demoUrl: 'https://www.uniline.site/typerdog'
   }
 ];
