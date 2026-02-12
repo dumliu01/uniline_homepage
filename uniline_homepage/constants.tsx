@@ -74,9 +74,9 @@ export const PROJECTS: LocalizedProject[] = [
       zh: '打字狗是一个打字游戏，帮助你提高打字速度和准确性。它是一个简单的游戏，你可以通过它来提高你的打字速度和准确性。'
     },
     category: 'Design',
-    imageUrl: '/res/images/typerdog_screen_1.jpg',
+    imageUrl: '/images/typerdog_screen_1.jpg',
     images: [
-      '/res/images/typerdog_screen_2.jpg'
+      '/images/typerdog_screen_2.jpg'
     ],
     techStack: ['React', 'Stable Diffusion', 'FastAPI', 'Three.js'],
     languages: ['TypeScript', 'Python', 'GLSL'],
