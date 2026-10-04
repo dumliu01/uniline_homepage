@@ -57,5 +57,25 @@ export const PROJECTS: LocalizedProject[] = [
     tools: ['Provider', 'Dio', 'PostgreSQL'],
     platforms: ['iOS', 'Android', 'macOS', 'Windows'],
     demoUrl: 'https://valbum.uniline.site/'
+  },
+  {
+    id: '3',
+    title: { en: 'TANK WARFARE', zh: 'TANK WARFARE 坦克大战' },
+    description: {
+      en: 'Classic tank battles in a 3D ruined city.',
+      zh: '在 3D 废墟城市中重温经典坦克大战。'
+    },
+    longDescription: {
+      en: 'Defend your base, break through walls, collect power-ups, and clear waves of enemy tanks across handcrafted levels in a browser-playable 3D battlefield.',
+      zh: '守卫基地、击穿砖墙、收集道具，在可直接通过浏览器游玩的 3D 战场中逐关击退敌方坦克。'
+    },
+    category: 'Web',
+    imageUrl: '/images/tank_warfare.png',
+    images: ['/images/tank_warfare.png'],
+    techStack: ['Three.js', 'WebGL', 'Vite'],
+    languages: ['JavaScript'],
+    tools: ['Web Audio API', 'Vite'],
+    platforms: ['Desktop Browser', 'Mobile Browser'],
+    demoUrl: 'https://tank.uniline.site/'
   }
 ];
