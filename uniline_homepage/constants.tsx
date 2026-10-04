@@ -38,25 +38,24 @@ export const PROJECTS: LocalizedProject[] = [
   },
   {
     id: '2',
-    title: { en: 'TyperDog: Typing Game', zh: 'TyperDog: 打字狗' },
+    title: { en: 'Valbum: Your Photo Library', zh: 'Valbum：你的照片图库' },
     description: { 
-      en: 'A typing game that helps you improve your typing speed and accuracy.',
-      zh: '一个打字游戏，帮助你提高打字速度和准确性。'
+      en: 'A home for your photos, across devices and your own storage.',
+      zh: '让不同设备和自有存储中的照片汇聚一处。'
     },
     longDescription: {
-      en: 'TyperDog is a typing game that helps you improve your typing speed and accuracy. It is a simple game that you can play to improve your typing speed and accuracy.',
-      zh: '打字狗是一个打字游戏，帮助你提高打字速度和准确性。它是一个简单的游戏，你可以通过它来提高你的打字速度和准确性。'
+      en: 'Valbum brings local and backed-up photos into one timeline. Browse by date, keep favorites close, and automatically back up new photos to your own NAS or supported cloud storage.',
+      zh: 'Valbum 将本地与已备份的照片汇入同一条时间线。按日期浏览、收藏喜爱的照片，并将新照片自动备份到自己的 NAS 或支持的云端存储。'
     },
-    category: 'Design',
-    imageUrl: '/images/typerdog_screen_1.jpg',
+    category: 'App',
+    imageUrl: '/images/valbum_browse_photos.png',
     images: [
-      '/images/typerdog_screen_2.jpg'
+      '/images/valbum_browse_photos.png'
     ],
-    techStack: ['React', 'Stable Diffusion', 'FastAPI', 'Three.js'],
-    languages: ['TypeScript', 'Python', 'GLSL'],
-    tools: ['Figma', 'TensorFlow', 'CUDA'],
-    platforms: ['SaaS', 'Web'],
-    codeUrl: 'https://github.com/dumliu/typerdog',
-    demoUrl: 'https://www.uniline.site/typerdog'
+    techStack: ['Flutter', 'Go', 'NAS'],
+    languages: ['Dart', 'Go'],
+    tools: ['Provider', 'Dio', 'PostgreSQL'],
+    platforms: ['iOS', 'Android', 'macOS', 'Windows'],
+    demoUrl: 'https://valbum.uniline.site/'
   }
 ];
